@@ -11,10 +11,15 @@ import history from 'connect-history-api-fallback'
 // 正式环境时，下面两个模块不需要引入
 import webpackDevMiddleware from 'webpack-dev-middleware'
 import webpackHotMiddleware from 'webpack-hot-middleware'
-
 import config from '../../build/webpack.dev.conf'
 
 const app = express()
+var index = require('./router/index');//取到express的路由
+
+
+
+
+app.use(require('./middleware/res'));//设置中间件
 
 // 引入history模式让浏览器进行前端路由页面跳转
 app.use(history())
@@ -25,6 +30,7 @@ app.use(logger('dev'))
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(express.static(path.join(__dirname, 'public')))
+app.use('/api', index)
 
 const compiler = webpack(config)
 //webpack 中间件
@@ -38,6 +44,7 @@ app.use(webpackHotMiddleware(compiler))
 app.use(express.static(path.join(__dirname, 'views')))
 app.get('/', function (req, res) {
   res.sendFile('./views/index.html')
+  // res.sendFile('../../dist/index.html')
 })
 
 // catch 404 and forward to error handler
