@@ -72,5 +72,7 @@ Vue + Express 前后端脚手架
     此时可专门写一个生产环境启动express的脚本。
     服务端接口写在controller文件夹内，在router文件夹index.js注册即可
 
+- 浏览器访问：http://localhost:4000/
+
 ## 参考资料
 - [vue-express-dev-boilerplate](https://github.com/Konata9/vue-express-dev-boilerplate)
